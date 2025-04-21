@@ -52,15 +52,23 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt up
 * Install Yarn (linux)
 
 ```
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+# Download the Yarn GPG key
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarn-archive-keyring.gpg > /dev/null
+
+# Add the Yarn repository using the new keyring
+echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+# Update and install Yarn
+sudo apt update && sudo apt install yarn
+
 ```
 
 ```
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list > /dev/null
+
 ```
 
 ```
-sudo apt update && sudo apt install -y yarn
+
 ```
 
 
